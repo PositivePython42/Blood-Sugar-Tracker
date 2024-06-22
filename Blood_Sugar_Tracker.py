@@ -8,7 +8,7 @@ df = pd.DataFrame(columns=["Date", "Breakfast", "Lunch", "Dinner", "Bedtime"])
 # Function to add new reading
 def add_reading(breakfast, lunch, dinner, bedtime):
   today = datetime.today().strftime('%Y-%m-%d')
-  df = df.append({"Date": today, "Breakfast": breakfast, "Lunch": lunch, "Dinner": dinner, "Bedtime": bedtime}, ignore_index=True)
+  df = df.append({"Date": today, "Breakfast": breakfast, "Lunch": lunch, "Dinner": dinner, "Bedtime": bedtime}, ignore_index=True, format=%d)
   st.session_state["df"] = df.to_json()  # Update session state for persistence
 
 # Load data from session state (if available)
