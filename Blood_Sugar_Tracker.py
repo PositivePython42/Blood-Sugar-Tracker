@@ -8,7 +8,7 @@ df = pd.DataFrame(columns=["Date", "Breakfast", "Lunch", "Dinner", "Bedtime"])
 # Function to add new reading
 def add_reading(breakfast, lunch, dinner, bedtime):
   today = datetime.today().strftime('%Y-%m-%d')
-  df = df.append({"Date": today, "Breakfast": breakfast, "Lunch": lunch, "Dinner": dinner, "Bedtime": bedtime}, ignore_index=True, format=%d)
+  df = df.append({"Date": today, "Breakfast": breakfast, "Lunch": lunch, "Dinner": dinner, "Bedtime": bedtime}, ignore_index=True)
   st.session_state["df"] = df.to_json()  # Update session state for persistence
 
 # Load data from session state (if available)
@@ -28,10 +28,10 @@ with st.expander('About this app'):
 
 
 # Input fields for readings
-breakfast = st.number_input("Breakfast", min_value=0)
-lunch = st.number_input("Lunch", min_value=0)
-dinner = st.number_input("Dinner", min_value=0)
-bedtime = st.number_input("Bedtime", min_value=0)
+breakfast = st.number_input("Breakfast", min_value=0, format=%d)
+lunch = st.number_input("Lunch", min_value=0, format=%d)
+dinner = st.number_input("Dinner", min_value=0, format=%d)
+bedtime = st.number_input("Bedtime", min_value=0, format=%d)
 
 # Button to submit reading
 if st.button("Record Reading"):
