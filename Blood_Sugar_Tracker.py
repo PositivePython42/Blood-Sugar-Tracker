@@ -1,47 +1,69 @@
-import streamlit as st
-import pandas as pd
-from datetime import datetime, timedelta
+#Blood Sugar Tracker v0.1 : Sean Massey : seany42@gmail.com : Python 10.11
+#Raise feedback and issues on GitHub please, https://github.com/PositivePython42/Blood-Sugar-Tracker/issues
 
-# Create pandas dataframe to store readings
-df = pd.DataFrame(columns=["Date", "Breakfast", "Lunch", "Dinner", "Bedtime"])
+import os, time
 
-# Function to add new reading
-def add_reading(breakfast, lunch, dinner, bedtime):
-  today = datetime.today().strftime('%Y-%m-%d')
-  df = df.append({"Date": today, "Breakfast": breakfast, "Lunch": lunch, "Dinner": dinner, "Bedtime": bedtime}, ignore_index=True)
-  st.session_state["df"] = df.to_json()  # Update session state for persistence
+def refresh(delay):
+    time.sleep(delay)
+    os.system('clear')
 
-# Load data from session state (if available)
-if "df" in st.session_state:
-  df = pd.read_json(st.session_state["df"])
+#load data from CSV to working data frame
+def auto_load():
+    return
 
-# Setup Main Page Area
-st.set_page_config(layout="wide")
-st.title('**Blood Sugar Tracker**')
+#save data from data frame to CSV
+def auto_save():
+    return
+    
+def record_reading():
+    #take in date for reading
+    #check it is a valid dd/mm input
+    #ask if the reading breafast, lunch, dinner or bed
+    #input reading and check it is valid
+    #record to data from
+    #print today's and yesterday's reading
+    return
+    
+def last_readings(days):
+    #print out formatted table of last x days readings
+    #wait for user to press a key and return to menu
+    return
 
-with st.expander('About this app'):
-    st.write('Enter you blood suagr readings through the day, the app will automatically\n'
-            'show your bood sugar readings for the last 25 days.'
-            'show your last weekly and monthly average (compqared to previous)'
-             'and a graph of your daily averages.')
-    st.write('Email seany42@gmail.com with any feedback, or raise an issues on GitHub https://github.com/PositivePython42/PandOura/issues')
+#Main Program Loop
 
+#If there is aready a data file, load it into a Panda's dataframe
 
-# Input fields for readings
-breakfast = st.number_input("Breakfast", min_value=0, format=%d)
-lunch = st.number_input("Lunch", min_value=0, format=%d)
-dinner = st.number_input("Dinner", min_value=0, format=%d)
-bedtime = st.number_input("Bedtime", min_value=0, format=%d)
-
-# Button to submit reading
-if st.button("Record Reading"):
-  add_reading(breakfast, lunch, dinner, bedtime)
-  st.success("Sucessfully Recorded!")
-
-# Display the last 20 days of readings
-filtered_df = df[df["Date"] >= (datetime.today() - timedelta(days=20))]
-st.subheader("Last 20 Days Readings")
-st.dataframe(filtered_df)
-
-# Explanation about reading interpretation (optional)
-st.write("Always Seek Medical Advice About Your Blood Sugar Readings.")
+while True:
+    print('Blood Sugar Tracker v0.1')
+    print()
+    print('1. Record a blood sugar reading.')
+    print('2. Last 7 days readings.')
+    print('3. Current 5 day delta.')
+    print('4. Current 20 day delta.')
+    print('5. All reading averages graph.')
+    print('6. Last reading versus average.')
+    print('7. Export results to Excel.')
+    print('0. Quit.')
+    
+    menu_option = int(input('Chose from 1 - 7, or 0 to quit :: '))
+    match menu_option:
+        case 1:
+            print('Record a blood sugar reading')
+        case 2:
+            print('Last 7 days readings')
+        case 3:
+            print('Current 5 day delta')
+        case 4:
+            print('Current 20 day delta.')
+        case 5:
+            print('All reading averages graph')
+        case 6:
+            print('Last reading versus average.')
+        case 7:
+            print('Export to Excel.')
+        case 0:
+            break
+        case _:
+            print('Please chose one of the options above.')
+            refresh(2)
+        
